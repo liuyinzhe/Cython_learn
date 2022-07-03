@@ -1,0 +1,26 @@
+// pyxbld C依赖关系
+// .pyxbld 文件要和 .pyx 文件具有相同的基名
+
+# fib.pyxbld
+from distutils.extension import Extension
+
+def make_ext(modname, pyxfilename):
+    """
+    如果 .pyxbld 文件中定义了这个函数
+    那么在编译之前会进行调用，并自动往进行传参
+    modname 是编译之后的扩展模块名，显然这里就是 fib
+    pyxfilename 是编译的 .pyx 文件，显然是 fib.pyx
+    注意: .pyx 和 .pyxbld 要具有相同的基名称
+    然后它要返回一个我们之前说的 Extension 对象
+    :param modname:
+    :param pyxfilename:
+    :return:
+    """
+    return Extension(modname,
+                     sources=[pyxfilename, "cfib.c"],
+                     # include_dir 表示在当前目录中寻找头文件
+                     include_dirs=["."])
+    # 我们看到整体还是类似的逻辑，因为编译这一步是怎么也绕不过去的
+    # 区别就是手动编译还是自动编译，如果是自动编译，显然限制会比较多
+    # 想解除限制，需要定义 .pyxbld 文件
+    # 但很明显，这和手动编译没啥区别了
