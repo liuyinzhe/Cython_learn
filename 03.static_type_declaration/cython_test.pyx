@@ -6,3 +6,7 @@ print(f"a = {a}")
 b[0] = 6.28
 # 再次打印a
 print(f"a = {a}")
+
+
+cdef int a, b, c 
+t = (a, b, c)
